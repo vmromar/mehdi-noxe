@@ -28,7 +28,7 @@ const mockProducts: Product[] = [
     top_notes: "Lavender, Mandarin Orange, Black Currant",
     heart_notes: "Lavender, Orange Blossom, Jasmine",
     base_notes: "Madagascar Vanilla, Musk, Cedar",
-    longevity: "8-10 Hours",
+    longevity: "6-8 Hours",
     projection: "Strong",
     occasion: "Anytime",
     gender: "Women",
