@@ -31,7 +31,7 @@ const mockProducts: Product[] = [
     longevity: "8-10 Hours",
     projection: "Strong",
     occasion: "Anytime",
-    gender: "Women",
+    gender: "summer",
     size_ml: 20,
     stock: 100,
     is_best_seller: true,
