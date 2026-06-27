@@ -95,27 +95,7 @@ const mockProducts: Product[] = [
     stock: 15,
     is_best_seller: false,
     created_at: new Date().toISOString()
-  } 
-    {
-    id: '5',
-    name: 'mehdi hh',
-    price: 210,
-    description: 'Crisp Italian bergamot meets soft white florals and warm cedarwood.',
-    image_url: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=800&q=80',
-    gallery_urls: [],
-    category: 'Summer',
-    top_notes: 'Bergamot, Lemon Zest',
-    heart_notes: 'Jasmine, Lily of the Valley',
-    base_notes: 'Cedarwood, White Musk',
-    longevity: '6-888 Hours',
-    projection: 'Moderate',
-    occasion: 'Daytime, Casual',
-    gender: 'rjal',
-    size_ml: 50,
-    stock: 30,
-    is_best_seller: true,
-    created_at: new Date().toISOString()
-  },
+  }
 ];
 
 const ShopContext = createContext<ShopContextType | undefined>(undefined);
