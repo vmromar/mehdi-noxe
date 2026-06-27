@@ -1,21 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { supabase } from "../lib/supabase";
-import { Product, CartItem } from "../types";
+const fs = require('fs');
 
-interface ShopContextType {
-  products: Product[];
-  cart: CartItem[];
-  addToCart: (product: Product, quantity?: number) => void;
-  removeFromCart: (productId: string) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
-  cartTotal: number;
-  isCartOpen: boolean;
-  setIsCartOpen: (isOpen: boolean) => void;
-  isLoading: boolean;
-  clearCart: () => void;
-}
-
-const mockProducts: Product[] = [
+const newProductsStr = `const mockProducts: Product[] = [
   {
     id: "w1",
     name: "Libre",
@@ -373,132 +358,21 @@ const mockProducts: Product[] = [
     is_best_seller: false,
     created_at: new Date().toISOString(),
   }
-];
+];`;
 
-const ShopContext = createContext<ShopContextType | undefined>(undefined);
+let content = fs.readFileSync('src/context/ShopContext.tsx', 'utf8');
 
-export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [cart, setCart] = useState<CartItem[]>([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+// Find the start of mockProducts
+const startIndex = content.indexOf('const mockProducts: Product[] = [');
+// Find the end of mockProducts (which ends with '];' before 'const ShopContext =')
+const endIndex = content.indexOf('const ShopContext = createContext');
 
-  useEffect(() => {
-    fetchProducts();
-
-    // Load cart from local storage
-    const savedCart = localStorage.getItem("noxe_cart");
-    if (savedCart) {
-      try {
-        setCart(JSON.parse(savedCart));
-      } catch (e) {
-        console.error("Failed to parse cart", e);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("noxe_cart", JSON.stringify(cart));
-  }, [cart]);
-
-  const fetchProducts = async () => {
-    setIsLoading(true);
-    try {
-      // Check if supabase is configured
-      if (!supabase) {
-        console.log("Supabase not configured, using mock data");
-        setProducts(mockProducts);
-        setIsLoading(false);
-        return;
-      }
-
-      const { data, error } = await supabase
-        .from("products")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      if (error) {
-        console.error("Error fetching products:", error);
-        setProducts(mockProducts); // Fallback to mock data on error
-      } else if (data && data.length > 0) {
-        setProducts(data as Product[]);
-      } else {
-        setProducts(mockProducts); // Fallback to mock data if empty
-      }
-    } catch (error) {
-      console.error("Exception fetching products:", error);
-      setProducts(mockProducts);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const addToCart = (product: Product, quantity: number = 1) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === product.id);
-      if (existingItem) {
-        return prevCart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item,
-        );
-      }
-      return [...prevCart, { ...product, quantity }];
-    });
-    setIsCartOpen(true);
-  };
-
-  const removeFromCart = (productId: string) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
-  };
-
-  const updateQuantity = (productId: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeFromCart(productId);
-      return;
-    }
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === productId ? { ...item, quantity } : item,
-      ),
-    );
-  };
-
-  const clearCart = () => {
-    setCart([]);
-  };
-
-  const cartTotal = cart.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0,
-  );
-
-  return (
-    <ShopContext.Provider
-      value={{
-        products,
-        cart,
-        addToCart,
-        removeFromCart,
-        updateQuantity,
-        clearCart,
-        cartTotal,
-        isCartOpen,
-        setIsCartOpen,
-        isLoading,
-      }}
-    >
-      {children}
-    </ShopContext.Provider>
-  );
-};
-
-export const useShop = () => {
-  const context = useContext(ShopContext);
-  if (context === undefined) {
-    throw new Error("useShop must be used within a ShopProvider");
-  }
-  return context;
-};
+if (startIndex !== -1 && endIndex !== -1) {
+  // Extract up to the '];'
+  const endOfArray = content.lastIndexOf('];', endIndex) + 2;
+  const newContent = content.substring(0, startIndex) + newProductsStr + content.substring(endOfArray);
+  fs.writeFileSync('src/context/ShopContext.tsx', newContent, 'utf8');
+  console.log("Successfully replaced mockProducts");
+} else {
+  console.error("Could not find mockProducts array");
+}
