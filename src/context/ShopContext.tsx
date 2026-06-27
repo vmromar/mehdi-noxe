@@ -22,7 +22,7 @@ const mockProducts: Product[] = [
     brand: "Yves Saint Laurent",
     price: 30,
     description: "A grand floral Eau de Parfum, with an unequivocal YSL twist. The burning sensuality of the orange blossom flowers from Morocco, twisted with the aromatic boldness of lavender from France.",
-    image_url: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=800&q=80",
+    image_url: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhJf8BePXfHGMucAo-JNdhum8RpYReGIhyphenhyphenMX9TE2KmJY6w4Mq6ayTZdhIihnTPR1IlXK0EjijE4zZAT9acRE3Fn5SmAnJ71erpQ_fKgqJmEkQEDBbzd9nwxqGaYzhyCzDsuhtr9Uw0HbZdER0CMhTO37fA9EbRXCz67ytYHjdOfbFNVi4Z_S9wKqHbVvTf6/s320/WhatsApp%20Image%202026-06-27%20at%205.56.49%20PM.jpeg",
     gallery_urls: [],
     category: "Women",
     top_notes: "Lavender, Mandarin Orange, Black Currant",
