@@ -87,7 +87,7 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="text-center">
-                    <p className="text-xs text-noxe-gold tracking-widest uppercase mb-2">{product.category}</p>
+                    <p className="text-xs text-noxe-gold tracking-widest uppercase mb-2">{product.brand || product.category}</p>
                     <h3 className="text-xl font-serif text-noxe-white mb-2">{product.name}</h3>
                     <p className="text-gray-400">From 30 DH</p>
                   </div>

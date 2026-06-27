@@ -183,7 +183,7 @@ export default function Shop() {
                     </div>
                   </div>
                   <div className="text-center">
-                    <p className="text-[10px] text-gray-500 tracking-widest uppercase mb-2">{product.gender} • {product.size_ml}ML</p>
+                    <p className="text-[10px] text-gray-500 tracking-widest uppercase mb-2">{product.brand || product.gender} • {product.size_ml}ML</p>
                     <h3 className="text-lg font-serif text-noxe-white mb-2">{product.name}</h3>
                     <p className="text-noxe-gold font-medium">From 30 DH</p>
                   </div>

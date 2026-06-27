@@ -120,7 +120,7 @@ export default function ProductDetail() {
             <div className="mb-8 border-b border-noxe-light-gray pb-8">
               <div className="flex justify-between items-end mb-4">
                 <p className="text-xs text-noxe-gold tracking-widest uppercase">
-                  {product.gender} • {product.category}
+                  {product.brand || product.gender} • {product.category}
                 </p>
                 <p className="text-xs text-gray-500 tracking-widest uppercase">
                   {product.size_ml}ML
